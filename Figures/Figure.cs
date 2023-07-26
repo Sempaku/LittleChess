@@ -1,4 +1,4 @@
-﻿namespace LittleChess
+﻿namespace LittleChess.Figures
 {
     public abstract class Figure
     {

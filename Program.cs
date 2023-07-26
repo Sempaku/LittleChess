@@ -4,8 +4,10 @@
     {
         static void Main(string[] args)
         {
-            Coordinates coordinates = new Coordinates(File.A, 1);
-            Console.WriteLine($"{coordinates.GetHashCode()}");
+            Board b = new Board();
+            b.InitFiguresOnBoard();
+            ConsoleBoardRenderer consoleBoardRenderer = new();
+            consoleBoardRenderer.Render(b);
         }
     }
 }
