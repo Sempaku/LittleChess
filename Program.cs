@@ -4,7 +4,8 @@
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            Coordinates coordinates = new Coordinates(File.A, 1);
+            Console.WriteLine($"{coordinates.GetHashCode()}");
         }
     }
 }
