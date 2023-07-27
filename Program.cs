@@ -1,4 +1,6 @@
-﻿namespace LittleChess
+﻿using LittleChess.Figures;
+
+namespace LittleChess
 {
     internal class Program
     {
@@ -6,8 +8,8 @@
         {
             Board b = new Board();
             b.InitFiguresOnBoard();
-            ConsoleBoardRenderer consoleBoardRenderer = new();
-            consoleBoardRenderer.Render(b);
+            GameLogic gameLogic = new GameLogic(b);
+            gameLogic.StartGame();
         }
     }
 }

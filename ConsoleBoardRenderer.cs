@@ -19,7 +19,6 @@ namespace LittleChess
         public void Render(Board board)
         {
             PrepareConsole();
-            GetEmptySprite(new Coordinates(File.G, 5));
             for (int rank = 8; rank >= 1; rank--)
             {
                 string line = "";
@@ -31,7 +30,7 @@ namespace LittleChess
                         line += GetEmptySprite(coordinates);
                     else
                     {
-                        line += GetFigureSprite(Board.GetFigureByCoordinate(coordinates));
+                        line += GetFigureSprite(board.GetFigureByCoordinate(coordinates));
                     }
 
 
@@ -39,17 +38,14 @@ namespace LittleChess
 
                 }
                 Console.WriteLine(line);
-                line = "";
             }
-            Console.Read();
         }
 
 
         private void PrepareConsole()
         {
-            //Console.OutputEncoding = System.Text.Encoding.UTF8;
-            //ConsoleHelper.SetCurrentFont("Lucida Console", 22);
-            /*Console.SetWindowSize(22, 11);
+            /*ConsoleHelper.SetCurrentFont("Arial", 70);
+            Console.SetWindowSize(22, 13);
             Console.SetBufferSize(55, 55);*/
         }
         private string GetFigureSprite(Figure figure)
@@ -57,6 +53,12 @@ namespace LittleChess
             return PaintTheSprite($" {SelectUnicodeSpriteForFigure(figure)} ", figure.Color, Board.IsDarkCell(figure.Coordinates));
         }
 
+        /// <summary>
+        /// Метод возвращает спрайт в зависимости от фигуры
+        /// </summary>
+        /// <param name="figure"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
         private string SelectUnicodeSpriteForFigure(Figure figure)
         {
             string figureTitle = figure.GetType().Name;
@@ -68,11 +70,10 @@ namespace LittleChess
                 "Pawn" => "♟",
                 "Queen" => "♛",
                 "Rook" => "♜",
-
+                _ => throw new Exception("Unk")
             };
-                    
-            
         }
+
         private string GetEmptySprite(Coordinates coordinates)
         {
             return PaintTheSprite("   ", Color.WHITE, Board.IsDarkCell(coordinates));
