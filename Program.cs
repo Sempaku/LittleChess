@@ -1,11 +1,15 @@
-﻿namespace LittleChess
+﻿using LittleChess.Figures;
+
+namespace LittleChess
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            Coordinates coordinates = new Coordinates(File.A, 1);
-            Console.WriteLine($"{coordinates.GetHashCode()}");
+            Board b = new Board();
+            b.InitFiguresOnBoard();
+            GameLogic gameLogic = new GameLogic(b);
+            gameLogic.StartGame();
         }
     }
 }
