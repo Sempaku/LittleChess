@@ -37,5 +37,10 @@
         {
             return HashCode.Combine(file, rank);
         }
+
+        public override string ToString()
+        {
+            return $"{file}{rank}";
+        }
     }
 }

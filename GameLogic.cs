@@ -1,4 +1,6 @@
-﻿namespace LittleChess
+﻿using LittleChess.Figures;
+
+namespace LittleChess
 {
     internal class GameLogic
     {
@@ -14,15 +16,21 @@
 
         public void StartGame()
         {
-            bool isWhiteMove = true;
+            Color whoseMove = Color.WHITE;
 
             while (true)
             {
                 // render
+                _boardRenderer.Render(_board);
                 // input
-                var coorinates = _inputParser.Input();
+                Coordinates coordsFrom = _inputParser.InputFigureCoordinatesByColor(whoseMove, _board);
+                Figure figure = _board.GetFigureByCoordinate(coordsFrom);
+                Coordinates coordsTo = _inputParser.inputAviableMove(figure, _board);
                 // make move
+                _board.MoveFigure(coordsFrom, coordsTo);
                 // pass move
+
+                whoseMove = (whoseMove is Color.WHITE) ? Color.BLACK : Color.WHITE;
             }
         }
     }
