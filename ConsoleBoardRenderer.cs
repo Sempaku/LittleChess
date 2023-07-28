@@ -16,6 +16,7 @@ namespace LittleChess
         public const string ANSI_BLACK_FIGURE_COLOR = "\u001B[30m";
         public const string ANSI_WHITE_SQUARE_BACKGROUND = "\u001B[47m";
         public const string ANSI_BLACK_SQUARE_BACKGROUND = "\u001B[0;100m";
+        // TODO : string -> StringBuilder
         public void Render(Board board)
         {
             PrepareConsole();
@@ -32,10 +33,6 @@ namespace LittleChess
                     {
                         line += GetFigureSprite(board.GetFigureByCoordinate(coordinates));
                     }
-
-
-
-
                 }
                 Console.WriteLine(line);
             }
@@ -44,6 +41,7 @@ namespace LittleChess
 
         private void PrepareConsole()
         {
+            //Console.Clear();
             /*ConsoleHelper.SetCurrentFont("Arial", 70);
             Console.SetWindowSize(22, 13);
             Console.SetBufferSize(55, 55);*/
