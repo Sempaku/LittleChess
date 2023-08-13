@@ -1,11 +1,5 @@
 ﻿using LittleChess.BoardPackage;
 using LittleChess.Figures;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LittleChess
 {
@@ -13,7 +7,7 @@ namespace LittleChess
     {
         public static Coordinates Input()
         {
-            while(true)
+            while (true)
             {
                 string? inputText = Console.ReadLine();
                 if (string.IsNullOrWhiteSpace(inputText))
@@ -62,7 +56,7 @@ namespace LittleChess
 
         public static Coordinates InputAviableMove(Figure figure, Board board)
         {
-            while(true)
+            while (true)
             {
                 HashSet<Coordinates> aviableMoves = figure.GetAvailableMoves(board);
                 Console.WriteLine("Aviable moves:");
@@ -79,17 +73,16 @@ namespace LittleChess
 
                 return coordinates;
             }
-
         }
 
         /// <summary>
-        /// Парсит строку, если данные не удалось спарсить, то возвращается false, 
-        /// file = ' ', rank = -1;
+        /// Парсит строку, если данные не удалось спарсить, то возвращается false, file = ' ', rank
+        /// = -1;
         /// </summary>
-        /// <param name="inputText"></param>
-        /// <param name="file"></param>
-        /// <param name="rank"></param>
-        /// <returns></returns>
+        /// <param name="inputText"> </param>
+        /// <param name="file">      </param>
+        /// <param name="rank">      </param>
+        /// <returns> </returns>
         private static bool TryParseCoordinate(string inputText, out char file, out int rank)
         {
             file = ' '; rank = -1;
@@ -122,8 +115,7 @@ namespace LittleChess
                 Coordinates coordsTo = InputAviableMove(figure, board);
                 Move move = new Move(coordsFrom, coordsTo);
 
-                // check if king check after move (from , to)
-                //      cw(king is under attack)
+                // check if king check after move (from , to) cw(king is under attack)
 
                 if (ValidateIfKingCheckAfterMove(move, board, color))
                 {
@@ -132,7 +124,7 @@ namespace LittleChess
                 }
 
                 return move;
-            }            
+            }
         }
 
         private static bool ValidateIfKingCheckAfterMove(Move move, Board board, Color color)
@@ -147,12 +139,10 @@ namespace LittleChess
                 throw new NullReferenceException("King is null!");
             }
 
-            return copyBoard.IsCellUnderAttackByColor(king.Coordinates, 
-                (color == Color.WHITE )
-                ? Color.BLACK 
+            return copyBoard.IsCellUnderAttackByColor(king.Coordinates,
+                (color == Color.WHITE)
+                ? Color.BLACK
                 : Color.WHITE);
-
-
         }
     }
 }

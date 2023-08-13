@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace LittleChess.BoardPackage
+﻿namespace LittleChess.BoardPackage
 {
     public class BoardUtils
     {
@@ -60,6 +54,5 @@ namespace LittleChess.BoardPackage
 
             return result;
         }
-
     }
 }

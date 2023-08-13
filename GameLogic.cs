@@ -1,5 +1,4 @@
 ﻿using LittleChess.BoardPackage;
-using LittleChess.Figures;
 using LittleChess.GameStates;
 
 namespace LittleChess
@@ -9,11 +8,13 @@ namespace LittleChess
         private readonly Board _board;
         private readonly ConsoleBoardRenderer _boardRenderer;
         private readonly ConsoleInputParser _inputParser;
+
         private readonly List<GameStateChecker> _gameStateCheckers = new List<GameStateChecker>
         {
             new StalemateGameStateChecker(),
             new CheckmateGameStateChecker()
         };
+
         private GameState _gameState;
 
         public GameLogic(Board board)
@@ -31,7 +32,7 @@ namespace LittleChess
             {
                 // render
                 _boardRenderer.Render(_board);
-                // input 
+                // input
                 Move moveCoords = ConsoleInputParser.InputMove(_board, whoseMove, _boardRenderer);
                 // make move
                 _board.MakeMove(moveCoords);

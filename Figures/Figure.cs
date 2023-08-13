@@ -1,5 +1,4 @@
 ﻿using LittleChess.BoardPackage;
-using System.Collections.Generic;
 
 namespace LittleChess.Figures
 {
@@ -7,6 +6,7 @@ namespace LittleChess.Figures
     {
         public Color Color { get; }
         public Coordinates Coordinates { get; set; }
+
         public Figure(Color color, Coordinates coordinates)
         {
             Color = color;
@@ -32,19 +32,20 @@ namespace LittleChess.Figures
 
         protected virtual bool isCellAviableForMove(Coordinates coordinates, Board board)
         {
-            return board.IsCellEmpty(coordinates) || 
-                   board.GetFigureByCoordinate(coordinates).Color != Color;                
+            return board.IsCellEmpty(coordinates) ||
+                   board.GetFigureByCoordinate(coordinates).Color != Color;
         }
 
         protected abstract HashSet<CoordinatesShift> GetFigureMoves();
+
         protected virtual HashSet<CoordinatesShift> GetFigureAttacks()
         {
             return GetFigureMoves();
         }
-        
+
         internal HashSet<Coordinates> GetAttackedCells(Board board)
         {
-            HashSet<CoordinatesShift> figureAttacksShifts =  GetFigureAttacks();
+            HashSet<CoordinatesShift> figureAttacksShifts = GetFigureAttacks();
             HashSet<Coordinates> result = new HashSet<Coordinates>();
 
             foreach (var figureAttackShift in figureAttacksShifts)

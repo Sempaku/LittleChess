@@ -1,15 +1,9 @@
-﻿using LittleChess.Figures;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace LittleChess.BoardPackage
+﻿namespace LittleChess.BoardPackage
 {
     internal class BoardFactory
     {
-        FigureFactory figureFactory = new FigureFactory();
+        private FigureFactory figureFactory = new FigureFactory();
+
         // rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1
         public Board CreateBoardFromFEN(string fen)
         {
@@ -39,11 +33,9 @@ namespace LittleChess.BoardPackage
 
                         board.SetFigure(coordinates, figureFactory.CreateFigureByChar(fenChar, coordinates));
                         fileIndex++;
-
                     }
                 }
             }
-
 
             return board;
         }

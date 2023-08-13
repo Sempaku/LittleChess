@@ -2,7 +2,9 @@
 {
     public class Queen : LongRangeFigure
     {
-        public Queen(Color color, Coordinates coordinates) : base(color, coordinates) { }
+        public Queen(Color color, Coordinates coordinates) : base(color, coordinates)
+        {
+        }
 
         protected override HashSet<CoordinatesShift> GetFigureMoves()
         {
@@ -13,7 +15,5 @@
             }
             return moves;
         }
-
-
     }
 }

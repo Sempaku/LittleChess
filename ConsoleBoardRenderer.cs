@@ -1,12 +1,6 @@
 ﻿using LittleChess.BoardPackage;
 using LittleChess.Figures;
 using LittleChess.Utils;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LittleChess
 {
@@ -18,6 +12,7 @@ namespace LittleChess
         public const string ANSI_WHITE_CELL_BACKGROUND = "\u001B[47m";
         public const string ANSI_BLACK_CELL_BACKGROUND = "\u001B[0;100m";
         public const string ANSI_HIGHLITHTING_CELL_BACKGROUND = "\u001B[45m";
+
         // TODO : string -> StringBuilder
         public void Render(Board board, Figure figureToMove)
         {
@@ -33,7 +28,6 @@ namespace LittleChess
                 {
                     Coordinates coordinates = new Coordinates(file, rank);
                     bool isHighlithing = aviableMoves.Contains(coordinates);
-                        
 
                     if (board.IsCellEmpty(coordinates))
                         line += GetEmptySprite(coordinates, isHighlithing);
@@ -59,20 +53,19 @@ namespace LittleChess
             Console.SetWindowSize(35, 13);
             Console.SetBufferSize(55, 55);
         }
+
         private string GetFigureSprite(Figure figure, bool isHighlithing)
         {
             return PaintTheSprite($" {SelectUnicodeSpriteForFigure(figure)} ",
-                figure.Color, 
-                Board.IsDarkCell(figure.Coordinates), 
+                figure.Color,
+                Board.IsDarkCell(figure.Coordinates),
                 isHighlithing);
         }
 
-        /// <summary>
-        /// Метод возвращает спрайт в зависимости от фигуры
-        /// </summary>
-        /// <param name="figure"></param>
-        /// <returns></returns>
-        /// <exception cref="Exception"></exception>
+        /// <summary> Метод возвращает спрайт в зависимости от фигуры </summary>
+        /// <param name="figure"> </param>
+        /// <returns> </returns>
+        /// <exception cref="Exception"> </exception>
         private string SelectUnicodeSpriteForFigure(Figure figure)
         {
             string figureTitle = figure.GetType().Name;
@@ -100,12 +93,12 @@ namespace LittleChess
 
         private string GetEmptySprite(Coordinates coordinates, bool isHighlithing)
         {
-            return PaintTheSprite("   ", 
-                Color.WHITE, 
+            return PaintTheSprite("   ",
+                Color.WHITE,
                 Board.IsDarkCell(coordinates),
                 isHighlithing);
         }
-        
+
         private string PaintTheSprite(string sprite, Color figureColor, bool isDarkCell, bool isHighlighted)
         {
             // format = bg_color + font_color + text
@@ -114,7 +107,7 @@ namespace LittleChess
                 result = ANSI_WHITE_FIGURE_COLOR + result;
             else
                 result = ANSI_BLACK_FIGURE_COLOR + result;
-            if (isHighlighted) 
+            if (isHighlighted)
                 result = ANSI_HIGHLITHTING_CELL_BACKGROUND + result;
             else if (isDarkCell)
                 result = ANSI_BLACK_CELL_BACKGROUND + result;

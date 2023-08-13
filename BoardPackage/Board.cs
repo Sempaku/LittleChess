@@ -1,9 +1,4 @@
 ﻿using LittleChess.Figures;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LittleChess.BoardPackage
 {
@@ -46,7 +41,7 @@ namespace LittleChess.BoardPackage
         public static bool IsDarkCell(Coordinates coordinates)
         {
             return ((int)coordinates.file + coordinates.rank - 1) % 2 == 0
-                ? false // четные черные 
+                ? false // четные черные
                 : true;
         }
 

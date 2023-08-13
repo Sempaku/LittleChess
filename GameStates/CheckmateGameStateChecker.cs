@@ -1,10 +1,5 @@
 ﻿using LittleChess.BoardPackage;
 using LittleChess.Figures;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LittleChess.GameStates
 {
@@ -17,9 +12,9 @@ namespace LittleChess.GameStates
             if (king is null)
                 throw new ArgumentNullException("King is null!");
 
-            if (!board.IsCellUnderAttackByColor(king.Coordinates, 
-                color == Color.WHITE 
-                ? Color.BLACK 
+            if (!board.IsCellUnderAttackByColor(king.Coordinates,
+                color == Color.WHITE
+                ? Color.BLACK
                 : Color.WHITE))
             {
                 return GameState.GAME_IS_ON;

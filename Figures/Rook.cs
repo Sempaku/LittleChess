@@ -1,6 +1,4 @@
-﻿using LittleChess.Utils;
-
-namespace LittleChess.Figures
+﻿namespace LittleChess.Figures
 {
     public class Rook : LongRangeFigure
     {
