@@ -1,4 +1,5 @@
-﻿using LittleChess.Figures;
+﻿using LittleChess.BoardPackage;
+using LittleChess.Figures;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -27,7 +28,7 @@ namespace LittleChess
             }
         }
 
-        public Coordinates InputFigureCoordinatesByColor(Color color, Board board)
+        public static Coordinates InputFigureCoordinatesByColor(Color color, Board board)
         {
             while (true)
             {
@@ -59,7 +60,7 @@ namespace LittleChess
             }
         }
 
-        public Coordinates inputAviableMove(Figure figure, Board board)
+        public static Coordinates InputAviableMove(Figure figure, Board board)
         {
             while(true)
             {
@@ -95,7 +96,7 @@ namespace LittleChess
 
             char[] goodFiles = new char[] { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h' };
 
-            if (string.IsNullOrWhiteSpace(inputText) || inputText.Length != 2)
+            if (string.IsNullOrWhiteSpace(inputText) || inputText.Length != 2) // todo : del isnull
                 return false;
 
             if (!goodFiles.Contains(inputText[0]))
@@ -108,6 +109,50 @@ namespace LittleChess
 
             file = inputText[0]; rank = parsedRank;
             return true;
+        }
+
+        public static Move InputMove(Board board, Color color, ConsoleBoardRenderer boardRenderer)
+        {
+            while (true)
+            {
+                // input
+                Coordinates coordsFrom = InputFigureCoordinatesByColor(color, board);
+                Figure figure = board.GetFigureByCoordinate(coordsFrom);
+                boardRenderer.Render(board, figure);
+                Coordinates coordsTo = InputAviableMove(figure, board);
+                Move move = new Move(coordsFrom, coordsTo);
+
+                // check if king check after move (from , to)
+                //      cw(king is under attack)
+
+                if (ValidateIfKingCheckAfterMove(move, board, color))
+                {
+                    Console.WriteLine("Your king is under attack!!!");
+                    continue;
+                }
+
+                return move;
+            }            
+        }
+
+        private static bool ValidateIfKingCheckAfterMove(Move move, Board board, Color color)
+        {
+            Board copyBoard = new BoardFactory().Copy(board);
+            copyBoard.MakeMove(move);
+
+            // Допущение -> на доске есть король :)
+            Figure? king = copyBoard.GetFiguresByColor(color).FirstOrDefault(f => f is King);
+            if (king is null)
+            {
+                throw new NullReferenceException("King is null!");
+            }
+
+            return copyBoard.IsCellUnderAttackByColor(king.Coordinates, 
+                (color == Color.WHITE )
+                ? Color.BLACK 
+                : Color.WHITE);
+
+
         }
     }
 }

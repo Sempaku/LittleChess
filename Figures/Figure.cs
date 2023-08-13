@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using LittleChess.BoardPackage;
+using System.Collections.Generic;
 
 namespace LittleChess.Figures
 {
@@ -20,7 +21,6 @@ namespace LittleChess.Figures
                 if (!Coordinates.CanShift(shift)) continue;
                 var newCoordinates = Coordinates.Shift(shift);
 
-
                 if (isCellAviableForMove(newCoordinates, board))
                 {
                     aviableMoves.Add(newCoordinates);
@@ -30,14 +30,42 @@ namespace LittleChess.Figures
             return aviableMoves;
         }
 
-        private bool isCellAviableForMove(Coordinates coordinates, Board board)
+        protected virtual bool isCellAviableForMove(Coordinates coordinates, Board board)
         {
             return board.IsCellEmpty(coordinates) || 
-                   board.GetFigureByCoordinate(coordinates).Color != Color;
-
-                
+                   board.GetFigureByCoordinate(coordinates).Color != Color;                
         }
 
         protected abstract HashSet<CoordinatesShift> GetFigureMoves();
+        protected virtual HashSet<CoordinatesShift> GetFigureAttacks()
+        {
+            return GetFigureMoves();
+        }
+        
+        internal HashSet<Coordinates> GetAttackedCells(Board board)
+        {
+            HashSet<CoordinatesShift> figureAttacksShifts =  GetFigureAttacks();
+            HashSet<Coordinates> result = new HashSet<Coordinates>();
+
+            foreach (var figureAttackShift in figureAttacksShifts)
+            {
+                if (Coordinates.CanShift(figureAttackShift))
+                {
+                    Coordinates shiftedCoordinates = Coordinates.Shift(figureAttackShift);
+
+                    if (isCellAviableForAttack(shiftedCoordinates, board))
+                    {
+                        result.Add(shiftedCoordinates);
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        protected virtual bool isCellAviableForAttack(Coordinates shiftedCoordinates, Board board)
+        {
+            return true;
+        }
     }
 }

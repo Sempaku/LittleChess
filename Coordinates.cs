@@ -16,11 +16,12 @@
             int f = (int)file + shift.FileShift;
             int r = rank + shift.RankShift;
 
-            if (((f < 1) || (f > 8)) || ((r < 1) || (r > 8)))          
+            if (((f < 1) || (f > 8)) || ((r < 1) || (r > 8)))
                 return false;
 
             return true;
         }
+
         public Coordinates Shift(CoordinatesShift shift)
         {
             return new Coordinates(file + shift.FileShift, rank + shift.RankShift);
@@ -32,7 +33,7 @@
                    file == coordinates.file &&
                    rank == coordinates.rank;
         }
-        
+
         public override int GetHashCode()
         {
             return HashCode.Combine(file, rank);

@@ -18,7 +18,6 @@ namespace LittleChess.Utils
         [DllImport("kernel32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
         internal static extern bool GetCurrentConsoleFontEx(IntPtr hConsoleOutput, bool MaximumWindow, ref FontInfo ConsoleCurrentFontEx);
 
-
         private static readonly IntPtr ConsoleOutputHandle = GetStdHandle(StandardOutputHandle);
 
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
@@ -30,13 +29,13 @@ namespace LittleChess.Utils
             public short FontSize;
             public int FontFamily;
             public int FontWeight;
+
             [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 32)]
             public string FontName;
         }
 
         public static FontInfo[] SetCurrentFont(string font, short fontSize = 0)
         {
-
             FontInfo before = new FontInfo
             {
                 cbSize = Marshal.SizeOf<FontInfo>()
@@ -44,7 +43,6 @@ namespace LittleChess.Utils
 
             if (GetCurrentConsoleFontEx(ConsoleOutputHandle, false, ref before))
             {
-
                 FontInfo set = new FontInfo
                 {
                     cbSize = Marshal.SizeOf<FontInfo>(),
